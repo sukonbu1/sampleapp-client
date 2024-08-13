@@ -60,6 +60,18 @@ export const searchProducts = (query) => {
     return axios.get(`${backEndUrl}/api/products/search`, { params: query });
 };
 
+export const fetchProductsByName = async (name) => {
+    try {
+        const response = await axios.get(`${backEndUrl}/products/search`, {
+            params: { name }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        throw error; 
+    }
+};
+
 export const fetchProductsByCategory = async (category, subCategory) => {
     try {
         let response = await axios.get(`${backEndUrl}/products/category/${category}/${subCategory}`);

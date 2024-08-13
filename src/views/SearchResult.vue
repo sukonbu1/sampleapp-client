@@ -51,10 +51,8 @@
     methods: {
       async fetchProducts() {
         try {
-          const response = await axios.get('http://localhost:8000/products/search', {
-            params: { name: this.$route.query.name } 
-          });
-          this.products = response.data;
+          const products = await fetchProductsByName(this.$route.query.name);
+          this.products = products;
           this.searchQuery = this.$route.query.name || '';
           console.log('Products:', this.products);
         } catch (error) {

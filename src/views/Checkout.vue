@@ -34,29 +34,24 @@ export default {
     formatPrice(value) {
       return value.toFixed(2);
     },
-    async checkoutcart() {
+    async checkout() {
       const cartItems = this.cartItems.map(item => ({
-        id: item.id,
-        quantity: item.quantity
-
+          _id: item._id,
+          quantity: item.quantity
       }));
-      try {
-        const response = await updateProductQuantities(cartItems);
-        
-        // Clear the cart from localStorage
-        localStorage.removeItem('cart');
-        
-        // Provide feedback to the user
-        this.flash('Purchase successful!', 'success');
-        EventBus.$emit('cart-updated', []);
-                
-        this.$router.push('/');
 
+      try {
+          const response = await updateProductQuantities({ cartItems });
+          localStorage.removeItem('cart');
+          this.flash('Purchase successful!', 'success');
+          EventBus.$emit('cart-updated', []);
+          this.$router.push('/');
       } catch (error) {
-        this.flash('Purchase failed. Please try again later.', 'error');
-        console.error('Checkout failed:', error);
+          this.flash('An error occurred. Please try again later.', 'error');
+          console.error('Checkout failed:', error);
       }
     }
+
   }
 };
 </script>

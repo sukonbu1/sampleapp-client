@@ -79,17 +79,23 @@ export const fetchProductsByCategory = async (category, subCategory) => {
     }
 }
 
-export const login = (user) => {
-    return axios.post(`${backEndUrl}/users/login`, user);
-}
+export const login = async (user) => {
+    try {
+        const response = await axios.post(`${backEndUrl}/users/login`, user);
+        return response.data;
+    } catch (error) {
+        console.error('Login error:', error);
+        throw error;
+    }
+};
 
 export const register = async (user) => {
     try {
         const response = await axios.post(`${backEndUrl}/users/register`, user);
-        return response.data; 
+        return response.data;
     } catch (error) {
         console.error('Registration error:', error);
-        throw error; 
+        throw error;
     }
 };
 

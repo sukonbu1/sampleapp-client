@@ -83,6 +83,7 @@
 
 <script>
 import { register } from '../helpers/api';
+import { EventBus } from '@/eventBus';
 export default {
     name: 'register',
     data() {
@@ -91,19 +92,27 @@ export default {
           username: '',
           password: '',
           role: 'user',
-      },
+        },
       };
     },
     methods: {
       async register() {
         try {
-            const response = await register(this.user);
-            sessionStorage.setItem('username', this.user.username);
-            sessionStorage.setItem('role', response.data.user.role); 
-            this.$router.push({ name: 'products' });
+          const response = await register(this.user);
+          
+          sessionStorage.setItem('username', response.user.username);
+          sessionStorage.setItem('role', response.user.role);
+          
+          EventBus.$emit('userLoggedIn');
+
+          this.error = ''; 
+          this.$router.push('/'); 
         } catch (error) {
-            this.error = 'Registration failed. Please try again.';
-            console.error('Registration error:', error);
+          if (error.response.status === 400) {
+            this.error = 'Invalid input or user already exists';
+          } else {
+            this.error = 'An error occurred. Please try again later';
+          }
         }
       },
     },

@@ -9,7 +9,7 @@
       </div>
       <hr>
       <h3>Total: {{ formatPrice(totalPrice) }} USD</h3>
-      <button @click="checkout1" class="btn btn-primary">Confirm Purchase</button>
+      <button @click="checkoutcart" class="btn btn-primary">Confirm Purchase</button>
     </div>
   </div>
 </template>
@@ -19,7 +19,7 @@ import { EventBus } from '@/eventBus';
 import { updateProductQuantities } from '../helpers/api';
 
 export default {
-  name: 'Checkout1',
+  name: 'Checkout',
   data() {
     return {
       cartItems: JSON.parse(localStorage.getItem('cart')) || []
@@ -34,7 +34,7 @@ export default {
     formatPrice(value) {
       return value.toFixed(2);
     },
-    async checkout() {
+    async checkoutcart() {
       const cartItems = this.cartItems.map(item => ({
         _id: item._id,
         quantity: item.quantity

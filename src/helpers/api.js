@@ -79,24 +79,18 @@ export const fetchProductsByCategory = async (category, subCategory) => {
     }
 }
 
-// Updated login and register URLs to use the cloud server
 export const login = (user) => {
     return axios.post(`${backEndUrl}/users/login`, user);
 }
 
-export const register = (user) => {
-    return axios.post(`${backEndUrl}/users/register`, user);
-}
-
-export const updateProductQuantities = async (cartItems) => {
-  try {
-    await Promise.all(cartItems.map(item =>
-      axios.put(`${backEndUrl}/products/update-quantity`, {
-        id: item._id,
-        quantity: item.quantity
-      })
-    ));
-  } catch (err) {
-    console.error('Error updating product quantities:', err);
-  }
+export const register = async (user) => {
+    try {
+        const response = await axios.post(`${backEndUrl}/users/register`, user);
+        return response.data; 
+    } catch (error) {
+        console.error('Registration error:', error);
+        throw error; 
+    }
 };
+
+

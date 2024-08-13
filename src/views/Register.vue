@@ -81,7 +81,7 @@
 }
 </style>
 
-  <script>
+<script>
 import { register } from '../helpers/api';
 export default {
     name: 'register',
@@ -90,17 +90,20 @@ export default {
         user: {
           username: '',
           password: '',
+          role: 'user',
       },
       };
     },
     methods: {
       async register() {
         try {
-          const response = await register(this.user);
-          sessionStorage.setItem('user', response.data.token);
-          this.$router.push({ name: 'products' });
+            const response = await register(this.user);
+            sessionStorage.setItem('username', this.user.username);
+            sessionStorage.setItem('role', response.data.user.role); 
+            this.$router.push({ name: 'products' });
         } catch (error) {
-          this.error = error;
+            this.error = 'Registration failed. Please try again.';
+            console.error('Registration error:', error);
         }
       },
     },

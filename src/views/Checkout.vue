@@ -5,8 +5,7 @@
         <h3>Your Cart</h3>
         <div v-for="item in cartItems" :key="item._id" class="checkout-item">
         <h4>{{ item.name }} (x{{ item.quantity }})</h4>
-        <p>{{ formatPrice((item.price * item.quantity)) }} USD</p>
-        </div>
+        <p>{{ formatPrice(item.price * item.quantity) }} USD</p>
         <hr>
         <h3>Total: {{ formatPrice(totalPrice) }} USD</h3>
         <button @click="processCheckout" class="btn btn-primary">Confirm Purchase</button>
@@ -28,7 +27,7 @@ export default {
   computed: {
     totalPrice() {
       const total =  this.cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      return total.toFixed(2);
+      return total;
     },
   },
   methods: {

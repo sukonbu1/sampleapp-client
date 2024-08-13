@@ -9,7 +9,7 @@
         </div>
         <hr>
         <h3>Total: {{ formatPrice(totalPrice) }} USD</h3>
-        <button @click="processCheckout" class="btn btn-primary">Confirm Purchase</button>
+        <button @click="checkout" class="btn btn-primary">Confirm Purchase</button>
       </div>
     </div>
   </template>
@@ -34,16 +34,24 @@ export default {
   methods: {
     formatPrice(value) {
       return value.toFixed(2);
-      },
-      async checkout() {
+    },
+    async checkout() {
       const cartItems = this.cart.map(item => ({
           _id: item._id,
           quantity: item.quantity
       }));
-
       try {
           const response = await updateProductQuantities(cartItems);
-          console.log('Checkout successful:', response);
+          
+         // Clear the cart from localStorage
+          localStorage.removeItem('cart');
+
+          // Provide feedback to the user
+          this.flash('Purchase successful!', 'success');
+          EventBus.$emit('cart-updated', []);
+                  
+          this.$router.push('/');
+
       } catch (error) {
           console.error('Checkout failed:', error);
       }

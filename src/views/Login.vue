@@ -109,7 +109,7 @@ export default {
         sessionStorage.setItem('role', response.data.user.role);
         EventBus.$emit('userLoggedIn');
         this.error = ''; 
-        this.$router.push('/homepage');
+        this.$router.push('/');
       } catch (error) {
           if (error.response.status === 401) {
             this.error = 'Invalid username or password';

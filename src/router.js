@@ -24,6 +24,7 @@ import OtherProducts from './components/OtherProducts/OtherProducts.vue';
 import Cart from './views/Cart.vue';
 import Checkout from './views/Checkout.vue';
 import NotFound from './components/NotFound.vue';
+import ProductCheckout from './views/Checkout.vue';
 
 Vue.use(Router);
 

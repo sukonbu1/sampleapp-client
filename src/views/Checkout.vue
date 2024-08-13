@@ -42,8 +42,8 @@ export default {
         // Call API to update product quantities
         await updateProductQuantities(cartItems);
 
-        // Clear the cart from sessionStorage
-        sessionStorage.removeItem('cart');
+        // Clear the cart from localStorage
+        localStorage.removeItem('cart');
 
         // Provide feedback to the user
         this.flash('Purchase successful!', 'success');

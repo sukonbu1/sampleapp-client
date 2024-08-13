@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const backEndUrl = 'http://localhost:8000/products/'
+const backEndUrl = 'https://sampleapp-server-ayq4.onrender.com'
 
 export const ViewAllProducts = async () => {
    try {

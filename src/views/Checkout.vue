@@ -37,7 +37,7 @@ export default {
     },
     async processCheckout() {
       try {
-        const cartItems = JSON.parse(sessionStorage.getItem('cart')) || [];
+        const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
         // Call API to update product quantities
         await updateProductQuantities(cartItems);

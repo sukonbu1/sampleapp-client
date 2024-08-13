@@ -9,7 +9,7 @@
       </div>
       <hr>
       <h3>Total: {{ formatPrice(totalPrice) }} USD</h3>
-      <button @click="checkoutcart" class="btn btn-primary">Confirm Purchase</button>
+      <button @click="checkout" class="btn btn-primary">Confirm Purchase</button>
     </div>
   </div>
 </template>

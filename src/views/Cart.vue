@@ -2,7 +2,7 @@
     <div class="container mt-5">
       <h1 class="my-cart-title">My Cart</h1>
       <div v-if="cart.length" class="cart-items">
-        <div v-for="(item, index) in cart" :key="item._id" class="cart-item">
+        <div v-for="(item, index) in cart" :key="item.id" class="cart-item">
           <div class="d-flex align-items-center">
             <img :src="item.images[0]" class="cart-item-img" alt="Product Image">
             <div class="cart-item-details ml-3">

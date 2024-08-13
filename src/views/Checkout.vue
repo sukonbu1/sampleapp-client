@@ -3,7 +3,7 @@
     <h1>Checkout</h1>
     <div class="checkout-summary">
       <h3>Your Cart</h3>
-      <div v-for="item in cartItems" :key="item._id" class="checkout-item">
+      <div v-for="item in cartItems" :key="item.id" class="checkout-item">
         <h4>{{ item.name }} (x{{ item.quantity }})</h4>
         <p>{{ formatPrice(item.price * item.quantity) }} USD</p>
       </div>
@@ -36,8 +36,9 @@ export default {
     },
     async checkoutcart() {
       const cartItems = this.cartItems.map(item => ({
-        _id: item._id,
+        id: item.id,
         quantity: item.quantity
+
       }));
       try {
         const response = await updateProductQuantities(cartItems);
@@ -52,6 +53,7 @@ export default {
         this.$router.push('/');
 
       } catch (error) {
+        this.flash('Purchase failed. Please try again later.', 'error');
         console.error('Checkout failed:', error);
       }
     }

@@ -125,6 +125,7 @@ export default {
     this.cartItems = JSON.parse(localStorage.getItem('cart')) || [];
     EventBus.$on('userLoggedIn', this.updateUserData);
     EventBus.$on('userLoggedOut', this.updateUserData);
+    EventBus.$on('cart-updated', this.updateCart);
   },
   beforeDestroy() {
     EventBus.$off('userLoggedIn', this.updateUserData);

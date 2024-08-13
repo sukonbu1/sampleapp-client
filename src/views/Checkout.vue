@@ -38,13 +38,11 @@
                 // Call API to update product quantities
                 await updateProductQuantities(this.cartItems);
 
-                // Clear the cart
                 localStorage.removeItem('cart');
                 
-                // Notify the user
                 this.flash('Purchase successful!', 'success');
-                
-                // Redirect to homepage or any other page
+                EventBus.$emit('cart-updated');
+
                 this.$router.push('/');
             } catch (error) {
                 console.error('Error during checkout:', error);

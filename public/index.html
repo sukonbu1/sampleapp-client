@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+<style>
+  html *
+{
+
+  font-family: Myriad Pro !important;
+}
+.ui.label {
+  min-width: 120px;
+}
+.input-select {
+  width: 1168px;
+}
+</style>
+<style scoped>
+.label-min-width {
+    min-width: 100px;
+}
+.product-rail {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto; /* Enables horizontal scrolling */
+}
+
+.product-item {
+  flex: 0 0 auto; /* Prevents the item from growing/shrinking */
+  width: 200px;
+  margin-right: 40px;
+  margin-bottom: 2px;
+  text-align: center;
+}
+  .card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-link .card {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card-link .card:hover {
+  transform: scale(1.05);
+}
+.card-text{
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.card-text-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+</style>
+</html>

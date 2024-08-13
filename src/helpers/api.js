@@ -93,13 +93,7 @@ export const register = async (user) => {
     }
 };
 
-export const updateProductQuantities = async (cartItems) => {
-    try {
-        const response = await axios.post(`${backEndUrl}/products/update-quantities`, { cartItems });
-        return response.data;
-    } catch (error) {
-        console.error('Error updating product quantities:', error);
-        throw error;
-    }
-};
+export const updateProductQuantities = (cartItems) => {
+    return axios.post(`${backEndUrl}/products/update-quantities`, { cartItems });
+  };
 

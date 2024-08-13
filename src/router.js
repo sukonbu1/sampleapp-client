@@ -24,7 +24,6 @@ import OtherProducts from './components/OtherProducts/OtherProducts.vue';
 import Cart from './views/Cart.vue';
 import Checkout from './views/Checkout.vue';
 import NotFound from './components/NotFound.vue';
-import UpdateQuanities from './views/Checkout.vue';
 
 Vue.use(Router);
 
@@ -178,12 +177,6 @@ export default new Router({
       name: 'Checkout',
       component: Checkout
     },
-    {
-      path: '/update-quantities',
-      name: 'ProductQuantityUpdated',
-      component: ProductQuantityUpdated
-    },
-    
     {
       path: '/404',
       name: 'NotFound',

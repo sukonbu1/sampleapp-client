@@ -38,7 +38,7 @@
 }
 </style>
   <script>  
-  import { fetchProductsByName } from '../api/products.js';
+  import { fetchProductsByName } from '../helpers/api'; 
 
   export default {
     data() {

@@ -32,31 +32,29 @@ export default {
     },
   },
   methods: {
-    formatPrice(value) {
-      return value.toFixed(2);
-    },
-    async processCheckout() {
-      try {
-        const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+  async checkout() {
+    try {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-        // Call API to update product quantities
-        await updateProductQuantities(cartItems);
+      // Only include _id and quantity for each cart item
+      let cartItems = cart.map(item => ({
+        _id: item._id,
+        quantity: item.quantity
+      }));
 
-        // Clear the cart from localStorage
-        localStorage.removeItem('cart');
-
-        // Provide feedback to the user
-        this.flash('Purchase successful!', 'success');
-        EventBus.$emit('cart-updated');
-
-        // Redirect to homepage
-        this.$router.push('/');
-      } catch (error) {
-        console.error('Error during checkout:', error);
-        this.flash('An error occurred during checkout. Please try again.', 'error');
-      }
-    },
+      // Send the payload to the backend
+      const response = await axios.post(`${backEndUrl}/products/update-quantities`, { cartItems });
+      
+      console.log('Checkout successful:', response.data);
+      // Handle successful checkout, e.g., clear cart, redirect, etc.
+      
+    } catch (error) {
+      console.error('Error during checkout:', error);
+      // Handle the error, e.g., display an error message to the user
+    }
   }
+}
+
 };
 </script>
 

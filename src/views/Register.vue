@@ -99,14 +99,14 @@ export default {
       async register() {
         try {
           const response = await register(this.user);
-          
+
           sessionStorage.setItem('username', response.user.username);
           sessionStorage.setItem('role', response.user.role);
           
           EventBus.$emit('userLoggedIn');
 
           this.error = ''; 
-          this.$router.push('/'); 
+          this.$router.push('/homepage'); 
         } catch (error) {
           if (error.response.status === 400) {
             this.error = 'Invalid input or user already exists';

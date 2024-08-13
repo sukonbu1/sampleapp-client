@@ -41,7 +41,6 @@
       totalPrice() {
         const total = this.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
         return total.toFixed(2);
-        updateCart();
     }
     },
     methods: {

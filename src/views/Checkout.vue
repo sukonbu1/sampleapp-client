@@ -36,7 +36,6 @@ export default {
     },
     async processCheckout() {
       try {
-        // Send cart items to the server to update quantities
         await updateProductQuantities(this.cartItems);
 
         // Clear the cart from localStorage

@@ -6,6 +6,7 @@
         <div v-for="item in cartItems" :key="item._id" class="checkout-item">
         <h4>{{ item.name }} (x{{ item.quantity }})</h4>
         <p>{{ formatPrice(item.price * item.quantity) }} USD</p>
+        </div>
         <hr>
         <h3>Total: {{ formatPrice(totalPrice) }} USD</h3>
         <button @click="processCheckout" class="btn btn-primary">Confirm Purchase</button>

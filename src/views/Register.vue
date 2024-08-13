@@ -87,7 +87,10 @@ export default {
     name: 'register',
     data() {
       return {
-        user: [],
+        user: {
+          username: '',
+          password: '',
+      },
       };
     },
     methods: {

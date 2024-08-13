@@ -62,9 +62,7 @@ export const searchProducts = (query) => {
 
 export const fetchProductsByName = async (name) => {
     try {
-        const response = await axios.get(`${backEndUrl}/products/search`, {
-            params: { name }
-        });
+        const response = await searchProducts({ name });
         return response.data;
     } catch (error) {
         console.error('Error fetching products:', error);

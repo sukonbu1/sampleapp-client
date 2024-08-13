@@ -38,6 +38,8 @@
 }
 </style>
   <script>  
+  import { fetchProductsByName } from '../api/products.js';
+
   export default {
     data() {
       return {

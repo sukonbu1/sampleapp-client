@@ -37,9 +37,7 @@
     color: #555;
 }
 </style>
-  <script>
-  import axios from 'axios';
-  
+  <script>  
   export default {
     data() {
       return {

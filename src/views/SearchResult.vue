@@ -10,7 +10,7 @@
                 <h5 class="item-title">{{ product.name }}</h5>
                 <p class="item.category">{{ product.category }}</p>
                 <p class="card-text-price">{{ product.price }} USD</p>
-                <router-link :to="'/product/' + product.id" class="btn btn-primary">View Details</router-link>
+                <router-link class="btn btn-dark" :to="`/product-detail/${product._id}`">View Details</router-link>
               </div>
             </div>
           </div>

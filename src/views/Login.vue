@@ -106,6 +106,7 @@ export default {
         sessionStorage.setItem('username', this.user.username);
         sessionStorage.setItem('role', response.data.user.role);
         EventBus.$emit('userLoggedIn');
+        this.flash("Welcome, " + this.user.username, 'success');
         this.error = ''; 
         this.$router.push('/');
       } catch (error) {

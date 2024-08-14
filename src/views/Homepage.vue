@@ -187,7 +187,6 @@ export default {
           promotions[promotion].push(product);
         }
       });
-
       return promotions;
     }
   },

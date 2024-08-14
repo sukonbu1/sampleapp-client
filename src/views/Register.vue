@@ -98,19 +98,18 @@ export default {
     methods: {
       async register() {
         try {
-          const response = await register(this.user);
-
-          sessionStorage.setItem('username', response.user.username);
-          sessionStorage.setItem('role', response.user.role);
-          
-          EventBus.$emit('userLoggedIn');
-
-          this.error = ''; 
-          this.$router.push('/'); 
+          const response = await register(this.user.username);
+          sessionStorage.setItem('user', this.user);
+          seessionStorage.setItem('role', response.data.user.role);
+          this.flash('Register success!', 'success');
+          this.error = '';
+          this.$router.push('/');
         } catch (error) {
-          if (error.response.status === 400) {
-            this.error = 'Invalid input or user already exists';
-          } else {
+          if (error.response.status === 400){
+            this.error = 'Username already exists';
+          }else if( error.response.status === 409){
+            this.flash('Bad request', 'error');
+          }else{
             this.error = 'An error occurred. Please try again later';
           }
         }

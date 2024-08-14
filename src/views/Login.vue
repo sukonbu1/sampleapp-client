@@ -1,8 +1,7 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <h1>Login</h1>
+  <div class="login-container">
+    <div class="login-form justify-content-center">
+        <h1 class="text-center">Login</h1>
         <form @submit.prevent="login">
           <div class="form-group">
             <label for="username">Username</label>
@@ -19,7 +18,6 @@
           <br>
           <button type="submit" class="btn btn-primary">Login</button>
         </form>
-      </div>
     </div>
   </div>
 </template>

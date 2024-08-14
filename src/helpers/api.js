@@ -83,14 +83,8 @@ export const login = (user) => {
     return axios.post(`${backEndUrl}/users/login`, user);
 };
 
-export const register = async (user) => {
-    try {
-        const response = await axios.post(`${backEndUrl}/users/register`, user);
-        return response.data;
-    } catch (error) {
-        console.error('Registration error:', error);
-        throw error;
-    }
+export const register = (user) => {
+    return axios.post(`${backEndUrl}/users/register`, user);
 };
 
 export const updateProductQuantities = async (cartItems) => {

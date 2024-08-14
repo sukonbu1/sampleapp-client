@@ -89,10 +89,10 @@ export default {
     data() {
       return {
         user: {
-          username: '',
-          password: '',
-          role: 'user',
-        },
+          username: "",
+          password: "",
+          role: "customer"
+       },
       };
     },
     methods: {
@@ -106,7 +106,7 @@ export default {
           EventBus.$emit('userLoggedIn');
 
           this.error = ''; 
-          this.$router.push('/homepage'); 
+          this.$router.push('/'); 
         } catch (error) {
           if (error.response.status === 400) {
             this.error = 'Invalid input or user already exists';

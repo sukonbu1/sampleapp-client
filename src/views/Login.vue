@@ -100,25 +100,26 @@ export default {
     };
   },
   methods: {
-      async login() {
-      try {
-        const response = await login(this.user);
+    async login() {
+    try {
+      const response = await login(this.user);
         sessionStorage.setItem('username', this.user.username);
-        sessionStorage.setItem('role', response.data.user.role);
+        sessionStorage.setItem('role', response.data.user.role);  
+        sessionStorage.setItem('token', response.data.token);
+
         EventBus.$emit('userLoggedIn');
         this.flash("Welcome, " + this.user.username, 'success');
-        this.error = ''; 
-        this.$router.push('/');
-      } catch (error) {
-          if (error.response.status === 401) {
-            this.error = 'Invalid username or password';
-          }else if(error.response.status === 404){
-            this.error = 'User not found';
-          } else {
-          this.error = 'An error occurred. Please try again later';
-        }
+        this.error = '';
+        this.$router.push('/'); 
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.message) {
+        this.error = error.response.data.message;
+      } else {
+        this.error = 'Network error or server unavailable';
+        console.error("Error during login:", error); // Log error for debugging
       }
     }
+  }
   }
 };
 </script>

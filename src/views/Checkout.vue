@@ -3,21 +3,19 @@
     <h1>Checkout</h1>
     <div class="checkout-summary">
       <h3>Your Cart</h3>
-      <div v-for="item in cartItems" :key="item.id" class="checkout-item">
-        <h4>{{ item.name }} (x{{ item.quantity }})</h4>
-        <p>{{ formatPrice(item.price * item.quantity) }} USD</p>
+      <div v-for="item in cartItems" :key="item._id" class="checkout-item">
+      <h4>{{ item.name }} (x{{ item.quantity }})</h4>
+      <p>{{ formatPrice(item.price * item.quantity) }} USD</p>
       </div>
       <hr>
       <h3>Total: {{ formatPrice(totalPrice) }} USD</h3>
-      <button @click="checkout" class="btn btn-primary">Confirm Purchase</button>
+      <button @click="processCheckout" class="btn btn-primary">Confirm Purchase</button>
     </div>
   </div>
 </template>
 
 <script>
 import { EventBus } from '@/eventBus';
-import { updateProductQuantities } from '../helpers/api';
-
 export default {
   name: 'Checkout',
   data() {
@@ -31,27 +29,29 @@ export default {
     },
   },
   methods: {
-    formatPrice(value) {
-      return value.toFixed(2);
-    },
-    async checkout() {
-      const cartItems = this.cartItems.map(item => ({
-          _id: item._id,
-          quantity: item.quantity
-      }));
+      formatPrice(value) {
+          return value.toFixed(2);
+      },
+      async processCheckout() {
+        const cartItems = this.cartItems.map(item => ({
+        _id: item._id,
+        quantity: item.quantity
+        }));
+          try {
+              // Clear the cart
+              localStorage.removeItem('cart');
+              
+              // Notify the user
+              this.flash('Purchase successful!', 'success');
+              EventBus.$emit('cart-updated', []);
 
-      try {
-          const response = await updateProductQuantities({ cartItems });
-          localStorage.removeItem('cart');
-          this.flash('Purchase successful!', 'success');
-          EventBus.$emit('cart-updated', []);
-          this.$router.push('/');
-      } catch (error) {
-          this.flash('An error occurred. Please try again later.', 'error');
-          console.error('Checkout failed:', error);
-      }
-    }
-
+              // Redirect to homepage or any other page
+              this.$router.push('/');
+          } catch (error) {
+              console.error('Error during checkout:', error);
+              this.flash('An error occurred during checkout. Please try again.', 'error');
+          }
+      },
   }
 };
 </script>

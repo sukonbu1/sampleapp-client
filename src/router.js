@@ -24,7 +24,7 @@ import OtherProducts from './components/OtherProducts/OtherProducts.vue';
 import Cart from './views/Cart.vue';
 import Checkout from './views/Checkout.vue';
 import NotFound from './components/NotFound.vue';
-import ProductCheckout from './views/Checkout.vue';
+import { requireAdmin, requireLogin, requireLogout } from './helpers/auth';
 
 Vue.use(Router);
 
@@ -44,49 +44,26 @@ export default new Router({
       path: '/products',
       name: 'Products',
       component: Products,
-      beforeEnter: (to, from, next) => {
-        if (sessionStorage.getItem('role') === 'admin') {
-          next();
-        } else {
-          next('/404');
-        }
-      }
+      beforeEnter: requireAdmin
+
     },
     {
       path: '/products/new',
       name: 'new-product',
       component: New,
-      beforeEnter: (to, from, next) => {
-        if (sessionStorage.getItem('role') === 'admin') {
-          next();
-        } else {
-          next('/404');
-        }
-      }
+      beforeEnter: requireAdmin
     },
     {
       path: '/products/show/:id',
       name: 'show-product',
       component: Show,
-      beforeEnter: (to, from, next) => {
-        if (sessionStorage.getItem('role') === 'admin') {
-          next();
-        } else {
-          next('/404');
-        }
-      }
+      beforeEnter: requireAdmin
     },
     {
       path: '/products/edit/:id',
       name: 'edit-product',
       component: Edit,
-      beforeEnter: (to, from, next) => {
-        if (sessionStorage.getItem('role') === 'admin') {
-          next();
-        } else {
-          next('/404');
-        }
-      }
+      beforeEnter: requireAdmin
     },
     {
       path: '/product-detail/:id',
@@ -151,12 +128,14 @@ export default new Router({
     {
       path: '/users/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      beforeEnter: requireLogout
     },
     {
       path: '/users/register',
       name: 'Register',
-      component: Register
+      component: Register,
+      beforeEnter: requireLogout
     },
     {
       path: '/about',
@@ -176,12 +155,26 @@ export default new Router({
     {
       path: '/checkout',
       name: 'Checkout',
-      component: Checkout
+      component: Checkout,
     },
     {
-      path: '/404',
+      path: '*',
       name: 'NotFound',
       component: NotFound,
+      beforeEnter: (to, from, next) => {
+        if (from.name) {
+          next(false); // Prevent URL change
+        } else {
+          next(); // Allow navigation if directly accessing an unknown URL
+        }
+      }
     },
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { x: 0, y: 0 };
+    }
+  },
 });

@@ -32,6 +32,13 @@
       </div>
       <br />
       <div class="ui labeled input fluid">
+        <div class="ui label" >Promotion</div>
+        <select v-model="product.promotion" class="input-select">
+          <option v-for="promo in promotion" :key="promo" :value="promo">{{ promo }}</option>
+        </select>
+        </div>
+      <br />
+      <div class="ui labeled input fluid">
         <div class="ui label" >Stock</div>
         <input type="text" required v-model="product.stock" />
       </div>
@@ -58,6 +65,7 @@ export default {
       images: [''],
       categories: ['Nintendo', 'PlayStation', 'Xbox', 'Others'], 
       subCategories: ['Consoles', 'Games', 'Accessories' ], 
+      promotion: ['New arrival', 'Sale', 'Best seller']
     };
   },
   computed: {

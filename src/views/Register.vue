@@ -13,6 +13,10 @@
         </div>
         <button type="submit" class="btn btn-primary btn-block">Register</button>
         <p class="text-center mt-3">Already have an account? <router-link to="/users/login">Login here</router-link></p>
+        <!-- Display the error message here -->
+        <div v-if="error" class="alert alert-danger text-center mt-3">
+          {{ error }}
+        </div>
       </form>
     </div>
   </div>
@@ -83,30 +87,32 @@
 
 <script>
 import { register } from '../helpers/api';
-import { EventBus } from '@/eventBus';
+
 export default {
-    name: 'register',
-    data() {
-      return {
-        user: {
-          username: "",
-          password: "",
-          role: "customer"
-       },
-      };
-    },
-    methods: {
-      async register() {
-        try {
-          const response = await register(this.user);
-          sessionStorage.setItem('user', response.data.token);
-          this.flash('Register success!', 'success')
-          this.$router.push( '/users/login' );
-        } catch (error) {
-          this.flash(error, 'failed')
-          this.error = error;
-        }
+  name: 'Register',
+  data() {
+    return {
+      user: {
+        username: "",
+        password: "",
+        role: "customer"
       },
+      error: null
+    };
+  },
+  methods: {
+    async register() {
+      try {
+        const response = await register(this.user);
+        this.$router.push('/users/login'); 
+      } catch (error) {
+        if (error.response) {
+          this.error = error.response.data.message || 'Registration failed. Please try again later.';
+        } else {
+          this.error = 'An unexpected error occurred.';
+        }
+      }
     },
-  };
-  </script>
+  },
+};
+</script>

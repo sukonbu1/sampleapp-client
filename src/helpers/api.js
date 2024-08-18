@@ -3,71 +3,67 @@ import axios from 'axios';
 const backEndUrl = 'https://sampleapp-server-1.onrender.com';
 
 export const ViewAllProducts = async () => {
-   try {
-      let response = await axios.get(`${backEndUrl}/products`);
-      return response.data;
-   } catch (err) {
-    console.error(err);    
+    try {
+        let response = await axios.get(`${backEndUrl}/products`);
+        return response.data;
+    } catch (err) {
+        console.error(err);
     }
-}
+};
 
 export const AddAProduct = async (product) => {
     try {
-        let response = await axios.post(`${backEndUrl}/products`, product);
+        const token = sessionStorage.getItem('token');
+        let response = await axios.post(`${backEndUrl}/products/`, product, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         return response.data;
     } catch (err) {
-        console.error(err);    
-     }
+        console.error(err);
     }
-
-export const DeleteAllProducts = async () => {
-    try {
-        let response = await axios.delete(`${backEndUrl}/products`);
-        return response.data;
-    } catch (err) {
-        console.error(err);    
-        }
-    }
+};
 
 export const ViewProductById = async (id) => {
-   try {
-      let response = await axios.get(`${backEndUrl}/products/${id}`);
-      return response.data;
-   } catch (err) {
-      console.error(err);    
+    try {
+        let response = await axios.get(`${backEndUrl}/products/` + id);
+        return response.data;
+    } catch (err) {
+        console.error(err);
     }
-}
+};
 
 export const UpdateAProduct = async (id, product) => {
     try {
-        let response = await axios.put(`${backEndUrl}/products/${id}`, product);
+        const token = sessionStorage.getItem('token');
+        let response = await axios.put(`${backEndUrl}/products/` + id, product, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         return response.data;
     } catch (err) {
-        console.error(err);    
-     }
+        console.error(err);
     }
+};
 
 export const DeleteAProduct = async (id) => {
     try {
-        await axios.delete(`${backEndUrl}/products/${id}`);
+        const token = sessionStorage.getItem('token');
+        await axios.delete(`${backEndUrl}/products/` + id, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         return response.data;
     } catch (err) {
-        console.error(err);    
-     }
+        console.error(err);
     }
-
-export const searchProducts = (query) => {
-    return axios.get(`${backEndUrl}/products/search`, { params: query });
 };
 
-export const fetchProductsByName = async (name) => {
-    try {
-        const response = await searchProducts({ name });
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching products:', error);
-        throw error; 
-    }
+export const searchProducts = (query) => {
+    return axios.get('/api/products/search', { params: query });
 };
 
 export const fetchProductsByCategory = async (category, subCategory) => {
@@ -80,19 +76,9 @@ export const fetchProductsByCategory = async (category, subCategory) => {
 };
 
 export const login = (user) => {
-    return axios.post(`${backEndUrl}/users/login`, user);
+    return axios.post(`${backEndUrl}/users/login/`, user);
 };
 
 export const register = (user) => {
-    return axios.post(`${backEndUrl}/users/register`, user);
+    return axios.post(`${backEndUrl}/users/register/`, user);
 };
-
-export const updateProductQuantities = async (cartItems) => {
-    try {
-      const response = await axios.post(`${backEndUrl}/products/update-quantities`, { cartItems });
-      return response.data;
-    } catch (error) {
-      console.error('Error updating product quantities:', error);
-      throw error;
-    }
-  };

@@ -48,6 +48,9 @@
 
       };
     },
+    async created(){
+      await this.fetchProducts();
+    },
     methods: {
       async fetchProducts() {
         try {

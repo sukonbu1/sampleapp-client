@@ -68,7 +68,7 @@ export const searchProducts = (query) => {
 
 export const fetchProductsByName = async (name) => {
     try {
-        const response = await axios.get(`${backEndUrl}products/search`, {
+        const response = await axios.get(`${backEndUrl}/products/search`, {
             params: { name }
         });
         return response.data;
@@ -77,7 +77,7 @@ export const fetchProductsByName = async (name) => {
         throw error;
     }
 };
-    
+
 export const fetchProductsByCategory = async (category, subCategory) => {
     try {
         let response = await axios.get(`${backEndUrl}/products/category/${category}/${subCategory}`);

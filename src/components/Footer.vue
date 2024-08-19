@@ -56,7 +56,7 @@
             <a href="#!" class="text-reset">Online Transacntion</a>
           </p>
           <p>
-            <a href="https://mcgame.vn" class="text-reset">Actual web</a>
+            <a href="#" class="text-reset">Actual web</a>
           </p>
         </div>
         <!-- Grid column -->

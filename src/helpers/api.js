@@ -62,10 +62,6 @@ export const DeleteAProduct = async (id) => {
     }
 };
 
-export const searchProducts = (query) => {
-    return axios.get('/api/products/search', { params: query });
-};
-
 export const fetchProductsByName = async (name) => {
     try {
         const response = await axios.get(`${backEndUrl}/products/search`, {
